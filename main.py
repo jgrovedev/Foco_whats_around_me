@@ -2,7 +2,6 @@ import plotly.graph_objects as go
 import pandas as pd
 from pandas.io.json import json_normalize
 import json
-import numpy as np
 
 geojson = json.load(open("Data/hc_bikelanes.geojson"))
 
