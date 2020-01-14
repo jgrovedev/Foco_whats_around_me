@@ -1,12 +1,96 @@
-/*CSS for GeoJSON*/
-
 body{
         margin: 0;
         padding: 0;
-}
-#map { 
-        position: absolute; 
+   }
+    #map {
+        position: absolute;
         top: 0;
-        bottom: 0; 
-        width: 100%; 
-}
+        bottom: 0;
+        width: 100%;
+   }
+   .legend-layer-ctrl{
+        height: 48px;
+        width: 48px;
+        position: relative;
+        margin: 20px;
+        float: right;
+
+   }
+    .img{
+        width:48px;
+        height:48px;
+   } 
+   .legend-layer-ctrl:hover  .legend-body {
+        opacity: 1;
+        visibility: visible;
+      }
+   .legend-body {
+        float: right;
+        width: 240px;
+        box-shadow: 5px 10px 18px #888888;
+        background:#f5f5f5;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        position: absolute;
+        top: 0;
+        right: 0;
+        visibility: hidden;
+        padding: 20px;
+        /* display: none */
+   }
+
+    .layer-text {
+        display: block;
+        text-indent: 40px;
+   }
+
+    .layer-fill {
+        float: left;
+        width: 25px;
+        height: 15px;
+        margin: 5px;
+        border: 1px solid rgba(0, 0, 0, .2);
+        position: absolute;
+   }
+    .one-mile {
+        background: #76d7c4;
+        opacity: .5;
+   }
+    .half-mile {
+        background: #f7dc6f;
+        opacity: .5;
+   }
+    .onehun-yrds {
+        background: #ec7063;
+        opacity: .5;
+   }
+   /* line icons for legend */
+    .layer-line{
+        border: 0;
+        width: 25px;
+        height: 1px;
+        cursor: pointer;
+        margin-top: 11px;
+        margin-left: 5px;
+        display: inline-block;
+        position: absolute;
+   }
+    .tracks {
+        background-color: #000;
+   }
+    .hclanes {
+        background-color: #3498db;
+        height: 2px;
+   }
+    .lclanes {
+        background-color: #3498db;
+   }
+    .paved {
+        background-color: #138d75;
+        height: 2px;
+   }
+    .natural {
+       /*10px color then 2px transparent -> repeat this for dash lines!*/
+        background: repeating-linear-gradient(to right,#138d75 0,#138d75 11px,transparent 11px,transparent 14px) 
+   }

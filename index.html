@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title>Fort Collins</title>
+    <title>Fort Collins - Rental Search</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <!--LOADS mapboxgl.js FROM CDN-->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script> 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
     <!--LOADS mapboxgl.css FROM CDN-->
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
     <!--LOADS style_blank.css FOR LEAFLET-->
     <link href="style.css" type="text/css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--LOADS jquery-3.4.1.js FROM CDN-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
-</head>
-
-<body>
-    <div id="map"></div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!--CONTAINS GEOJSON DATA-->
     <script src="Data/geojson_railRoad.js"></script>
     <script src="Data/geojson_rr_buff_1mi.js"></script>
@@ -26,8 +25,41 @@
     <script src="Data/geojson_lc_bike_lanes.js"></script>
     <script src="Data/geojson_natural_trails.js"></script>
     <script src="Data/geojson_paved_trails.js"></script>
+</head>
 
+<body>
     <!--LOADS LEAFLET MAP DATA/CUSTIMIZATION-->
-    <script src="main.js"></script> 
+    <div id="map"></div>
+    <script src="main.js"></script>
+    <div class=legend-layer-ctrl>
+        <img src="Icons\layer2.svg" class=img>
+            <div class="legend-body" id=legend>
+                <b>Railroad Layers</b>
+                <div class='train-layer-options'>
+                    <div class="layer-line tracks"></div>
+                    <span class="layer-text">Tracks<br></span>
+                    <div class="layer-fill one-mile"></div>
+                    <span class="layer-text">Sound Buffer (1 mile)<br></span>
+                    <div class="layer-fill half-mile"></div>
+                    <span class="layer-text">Sound Buffer (1/2 mile)<br></span>
+                    <div class="layer-fill onehun-yrds"></div>
+                    <span class="layer-text">Sound Buffer (100 yards)<br></span>
+                </div>
+                <b>Bike Lane Layers</b>
+                <div class='bike-layer-options'>
+                    <div class="layer-line hclanes"></div>
+                    <span class="layer-text">High Comfort Lanes<br></span>
+                    <div class="layer-line lclanes"></div>
+                    <span class="layer-text">Low Comfort Lanes<br></span>
+                </div>
+                <b>Multiuse Trail Layers</b>
+                <div class='bike-layer-options'>
+                    <div class="layer-line paved"></div>
+                    <span class="layer-text">Paved Trails<br></span>
+                    <div class="layer-line natural"></div>
+                    <span class="layer-text">Natural Trails<br></span>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
