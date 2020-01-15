@@ -2,64 +2,62 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Fort Collins - Rental Search</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <!--LOADS mapboxgl.js FROM CDN-->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
-    <!--LOADS mapboxgl.css FROM CDN-->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
-    <!--LOADS style_blank.css FOR LEAFLET-->
-    <link href="style.css" type="text/css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!--LOADS jquery-3.4.1.js FROM CDN-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!--CONTAINS GEOJSON DATA-->
-    <script src="Data/geojson_railRoad.js"></script>
-    <script src="Data/geojson_rr_buff_1mi.js"></script>
-    <script src="Data/geojson_rr_buff_half_mi.js"></script>
-    <script src="Data/geojson_rr_buff_100_yrds.js"></script>
-    <script src="Data/geojson_hc_bike_lanes.js"></script>
-    <script src="Data/geojson_lc_bike_lanes.js"></script>
-    <script src="Data/geojson_natural_trails.js"></script>
-    <script src="Data/geojson_paved_trails.js"></script>
+	<meta charset="utf-8" />
+	<title>Fort Collins - Rental Search</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<!--LOADS mapboxgl.js FROM CDN-->
+	<script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+	<!--LOADS mapboxgl.css FROM CDN-->
+	<link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+	<!--LOADS style_blank.css FOR LEAFLET-->
+	<link href="style.css" type="text/css" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!--LOADS jquery-3.4.1.js FROM CDN-->
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<!--CONTAINS GEOJSON DATA-->
+	<script src="Data/geojson_railRoad.js"></script>
+	<script src="Data/geojson_rr_buff_1mi.js"></script>
+	<script src="Data/geojson_rr_buff_half_mi.js"></script>
+	<script src="Data/geojson_rr_buff_100_yrds.js"></script>
+	<script src="Data/geojson_hc_bike_lanes.js"></script>
+	<script src="Data/geojson_lc_bike_lanes.js"></script>
+	<script src="Data/geojson_natural_trails.js"></script>
+	<script src="Data/geojson_paved_trails.js"></script>
+	<script src="Data/geojson_breweries.js"></script>
+	<script src="Data/geojson_breweries_100yrds.js"></script>
+	<script src="Data/geojson_climbinggym.js"></script>
 </head>
 
 <body>
-    <!--LOADS LEAFLET MAP DATA/CUSTIMIZATION-->
-    <div id="map"></div>
-    <script src="main.js"></script>
-    <div class=legend-layer-ctrl>
-        <img src="Icons\layer2.svg" class=img>
-            <div class="legend-body" id=legend>
-                <b>Railroad Layers</b>
-                <div class='train-layer-options'>
-                    <div class="layer-line tracks"></div>
-                    <span class="layer-text">Tracks<br></span>
-                    <div class="layer-fill one-mile"></div>
-                    <span class="layer-text">Sound Buffer (1 mile)<br></span>
-                    <div class="layer-fill half-mile"></div>
-                    <span class="layer-text">Sound Buffer (1/2 mile)<br></span>
-                    <div class="layer-fill onehun-yrds"></div>
-                    <span class="layer-text">Sound Buffer (100 yards)<br></span>
-                </div>
-                <b>Bike Lane Layers</b>
-                <div class='bike-layer-options'>
-                    <div class="layer-line hclanes"></div>
-                    <span class="layer-text">High Comfort Lanes<br></span>
-                    <div class="layer-line lclanes"></div>
-                    <span class="layer-text">Low Comfort Lanes<br></span>
-                </div>
-                <b>Multiuse Trail Layers</b>
-                <div class='bike-layer-options'>
-                    <div class="layer-line paved"></div>
-                    <span class="layer-text">Paved Trails<br></span>
-                    <div class="layer-line natural"></div>
-                    <span class="layer-text">Natural Trails<br></span>
-                </div>
-            </div>
-        </div>
+	<!--LOADS LEAFLET MAP DATA/CUSTIMIZATION-->
+	<div id="map"></div>
+	<script src="main.js"></script>
+	<div class=legend-layer-ctrl>
+		<img src="Icons\layer2.svg" class=img>
+		<div class="legend-body" id="legend"> <b>Railroad Layers</b>
+			<div class='train-layer-options'>
+				<div class="layer-line tracks"></div> <a class="layer-text" id="tracks"><span>Tracks</span><br></a>
+				<div class="layer-fill one-mile"></div> <a class="layer-text" id="mile-buff"><span>Sound Buffer (1 mile)</span><br></a>
+				<div class="layer-fill half-mile"></div> <a class="layer-text" id="half-buff"><span>Sound Buffer (1/2 mile)</span><br></a>
+				<div class="layer-fill onehun-yrds"></div> <a class="layer-text" id="onehun-yrds"><span>Sound Buffer (100 yards)</span><br></a>
+			</div> <b>Bike Lane Layers</b>
+			<div class='bike-layer-options'>
+				<div class="layer-line hclanes"></div> <a class="layer-text" id="hc-lanes"><span>High Comfort Lanes</span><br></a>
+				<div class="layer-line lclanes"></div> <a class="layer-text" id="lc-lanes"><span>Low Comfort Lanes</span><br></a>
+			</div> <b>Multiuse Trail Layers</b>
+			<div class='trail-layer-options'>
+				<div class="layer-line paved"></div> <a class="layer-text" id="paved"><span>Paved Trails</span><br></a>
+				<div class="layer-line natural"></div> <a class="layer-text" id="natural"><span>Natural Trails</span><br></a>
+			</div> <b>Points of Interest</b>
+			<div class='poi-layer-options'>
+				<div class="layer-circle allbrew"></div> <a class="layer-text" id="allbrew"><span>Breweries</span><br></a>
+				<div class="layer-circle brewhunyrds"></div> <a class="layer-text" id="brewhunyrds"><span>Trail Breweries (100 yards)</span><br></a>
+				<div class="layer-circle climbgym"></div> <a class="layer-text" id="climbgym"><span>Climbing Gyms</span><br></a>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>
