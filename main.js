@@ -13,8 +13,6 @@ geojson_lc_bike_lanes.features.forEach(function (feature) {
 map.fitBounds(bounds, {
 	'padding': 9
 })
-// adds legend-Layer-control
-// map.addControl(new mapboxgl.FullscreenControl(), 'legend-layer-ctrl');
 map.on('load', function () {
 	// layer - rail road
 	map.addLayer({
@@ -183,7 +181,7 @@ map.on('load', function () {
 			'visibility': 'visible'
 		}
 	});
-	// layer control functionality
+	// // layer control functionality
 	function layerControl(htmlID, htmlClass, mapboxID) {
 		// toggles layers via click and change color based on visibility
 		htmlID.onclick = function () {
@@ -248,6 +246,7 @@ map.on('load', function () {
 		closeButton: false,
 		closeOnClick: false
 	});
+	// // mouse over brewery points
 	map.on('mouseenter', 'Breweries', function (e) {
 		// Change the cursor style as a UI indicator.
 		map.getCanvas().style.cursor = 'pointer';
@@ -272,6 +271,7 @@ map.on('load', function () {
 		closeButton: false,
 		closeOnClick: false
 	});
+	// // mouseover brewery 100 yard points
 	map.on('mouseenter', 'Breweries_100yrds', function (e) {
 		// Change the cursor style as a UI indicator.
 		map.getCanvas().style.cursor = 'pointer';
@@ -291,10 +291,8 @@ map.on('load', function () {
 		map.getCanvas().style.cursor = '';
 		popup.remove();
 	});
-	// climbing gyms click popup
+	// // climbing gyms click popup
 	map.on('click', 'Climbing_Gyms', function (e) {
-		// Change the cursor style as a UI indicator.
-		// map.getCanvas().style.cursor = 'pointer'; 
 		var coordinates = e.features[0].geometry.coordinates.slice();
 		var description = e.features[0].properties.Name;
 		var website = e.features[0].properties.Website;
@@ -316,4 +314,13 @@ map.on('load', function () {
 		map.getCanvas().style.cursor = '';
 		popup.remove();
 	});
+	// // geocoder search bar
+	var geocoder = new MapboxGeocoder({ 
+		accessToken: mapboxgl.accessToken, 
+		mapboxgl: mapboxgl,
+		zoom: 13, 
+		placeholder: "Enter an address or place name", 
+		bbox: [-105.214, 40.451, -104.850, 40.841] 
+	  });
+	  map.addControl(geocoder, 'top-left'); 
 });

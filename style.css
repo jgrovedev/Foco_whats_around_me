@@ -96,7 +96,6 @@ body {
 	background: repeating-linear-gradient(to right, #138d75 0, #138d75 11px, transparent 11px, transparent 14px)
 }
 /* circle icons for legend */
-
 .layer-circle {
 	width: 8px;
 	height: 8px;
@@ -119,6 +118,10 @@ body {
 	border-color: #a569bd;
 	box-sizing: content-box;
 	margin-top: 4px;
+	font-size: 10px;
+}
+#brewhunyrds {
+	font-size: 13px;
 }
 .climbgym {
 	background-color: black;
