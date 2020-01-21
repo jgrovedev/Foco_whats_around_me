@@ -1,7 +1,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoicHJpbWU5MCIsImEiOiJjazU4bzJyNGQwZ3c3M25vMTZ0Y2d6dHRjIn0.KCP2cmkSomOlkvPk7nugng';
 var map = new mapboxgl.Map({
 	container: 'map', // container id
-	style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
+	style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
 	center: [-105.077, 40.55], // starting position [lng, lat]
 	zoom: 10 // starting zoom
 });
@@ -314,13 +314,103 @@ map.on('load', function () {
 		map.getCanvas().style.cursor = '';
 		popup.remove();
 	});
-	// // geocoder search bar
-	var geocoder = new MapboxGeocoder({ 
-		accessToken: mapboxgl.accessToken, 
-		mapboxgl: mapboxgl,
-		zoom: 13, 
-		placeholder: "Enter an address or place name", 
-		bbox: [-105.214, 40.451, -104.850, 40.841] 
-	  });
-	  map.addControl(geocoder, 'top-left'); 
-});
+	
+	var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        zoom: 13,
+        placeholder: "Enter an address or place name",
+		bbox: [-105.214, 40.451, -104.850, 40.841],
+      });
+
+	  map.addControl(geocoder, 'top-left');
+	  console.log(geocoder)
+
+	//   var isoButt = document.getElementById("buttonIso")
+	//   isoButt.addEventListener('click', getIso);
+	var profile = 'cycling';
+	var minutes = 10;
+
+	  function getIso() {		
+		function plotIso() {
+			// // Create variables to use in isochrone API
+			var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
+			var lng = geocoder.mapMarker._lngLat.lng;
+			var lat = geocoder.mapMarker._lngLat.lat;
+			// Create a function that sets up the Isochrone API query then makes an Ajax call
+				var query = urlBase + profile + '/' + lng + ',' + lat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
+				$.ajax({
+					method: 'GET',
+					url: query
+					}).done(function(data) {
+						map.getSource('iso').setData(data);
+				});
+				map.addSource('iso', {
+					type: 'geojson',
+					data: {
+					'type': 'FeatureCollection',
+					'features': []
+					}
+				});
+				map.addLayer({
+					'id': 'isoLayer',
+					'type': 'fill',
+					// Use "iso" as the data source for this layer
+					'source': 'iso',
+					'layout': {},
+					'paint': {
+					// The fill color for the layer is set to a light purple
+					'fill-color': '#5a3fc0',
+					'fill-opacity': 0.3
+					}
+				}, "poi-label");
+		}
+		var search = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0];
+		search.addEventListener('keyup', function(e) {
+			if (e.keyCode === 13) { 
+					plotIso();
+				};
+		});
+		
+		// WORK ON THIS!!!!!!!!
+		// var searchSugg = document.getElementsByClassName('mapboxgl-ctrl-geocoder--suggestions')[0];
+		// 	if (searchSugg !== undefined) {
+		// 	searchSugg.addEventListener('click', function() {
+		// 		if (searchSugg !== undefined) {
+		// 			plotIso();
+		// 		}
+		// 		});
+		// 	}
+	
+
+		var resetSearchButt = document.getElementsByClassName('mapboxgl-ctrl-geocoder--button')[0];
+		resetSearchButt.addEventListener('click', function() {
+			map.removeLayer('isoLayer');
+			map.removeSource('iso');
+		});
+		var resetSearchInput = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0];
+		resetSearchInput.addEventListener('keyup', function(e) {
+			if (e.keyCode === 8) { 
+				map.removeLayer('isoLayer');
+				map.removeSource('iso');
+			};
+		});
+		// Target the "params" form in the HTML portion of your code
+		var params = document.getElementById('params');
+		// When a user changes the value of profile or duration by clicking a button, change the parameter's value and make the API query again
+		params.addEventListener('change', function(e) {
+			if (e.target.name === 'profile') {
+				profile = e.target.value;
+				map.removeLayer('isoLayer');
+				map.removeSource('iso');
+				plotIso();
+			} else if (e.target.name === 'duration') {
+				minutes = e.target.value;
+				map.removeLayer('isoLayer');
+				map.removeSource('iso');
+				plotIso();
+			}
+		});
+	};
+	getIso();	
+	});
