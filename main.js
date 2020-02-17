@@ -139,7 +139,6 @@ map.on('load', function () {
 			'visibility': 'none'
 		}
 	});
-	// layer - natural_trails
 	map.addLayer({
 		'id': 'Breweries',
 		'type': 'circle',
@@ -147,20 +146,24 @@ map.on('load', function () {
 			'type': 'geojson',
 			'data': geojson_breweries,
 		},
+		'paint': {
+			'circle-stroke-width': 2,
+			'circle-stroke-color': '#a569bd'
+		},
 		'layout': {
-			'visibility': 'none'
+			'visibility': 'visible'
 		}
 	});
 	map.addLayer({
-		'id': 'Breweries_100yrds',
+		'id': 'Cannabis_Stores',
 		'type': 'circle',
 		'source': {
 			'type': 'geojson',
-			'data': geojson_breweries_100yrds,
+			'data': geojson_cannabis_stores,
 		},
 		'paint': {
-			'circle-stroke-width': 4,
-			'circle-stroke-color': '#a569bd'
+			'circle-stroke-width': 2,
+			'circle-stroke-color': '#00c400'
 		},
 		'layout': {
 			'visibility': 'visible'
@@ -174,8 +177,8 @@ map.on('load', function () {
 			'data': geojson_climbinggyms,
 		},
 		'paint': {
-			'circle-stroke-width': 4,
-			'circle-stroke-color': '#079e57'
+			'circle-stroke-width': 2,
+			'circle-stroke-color': '#DD0A0A'
 		},
 		'layout': {
 			'visibility': 'visible'
@@ -193,7 +196,7 @@ map.on('load', function () {
 				htmlClass.style.borderColor = '#D3D3D3'
 			} else {
 				map.setLayoutProperty(mapboxID, 'visibility', 'visible');
-				htmlID.style.color = '#000000'
+				htmlID.style.color = '#00ACEA'
 				htmlClass.style.background = ""
 				htmlClass.style.borderColor = ""
 			}
@@ -201,7 +204,7 @@ map.on('load', function () {
 		// sets default color property on webiste load based on layer visibility
 		var visibility = map.getLayoutProperty(mapboxID, 'visibility');
 		if (visibility === 'visible') {
-			htmlID.style.color = '#000000';
+			htmlID.style.color = '#00ACEA';
 			htmlClass.style.background = ""
 		} else {
 			htmlID.style.color = '#A9A9A9'
@@ -235,12 +238,12 @@ map.on('load', function () {
 	var allbrew_layer = document.getElementById("allbrew");
 	var allbrew_icon = document.getElementsByClassName("allbrew")[0];
 	layerControl(allbrew_layer, allbrew_icon, 'Breweries');
-	var brewhunyrds_layer = document.getElementById("brewhunyrds");
-	var brewhunyrds_icon = document.getElementsByClassName("brewhunyrds")[0];
-	layerControl(brewhunyrds_layer, brewhunyrds_icon, 'Breweries_100yrds');
 	var climbgym_layer = document.getElementById("climbgym");
 	var climbgym_icon = document.getElementsByClassName("climbgym")[0];
 	layerControl(climbgym_layer, climbgym_icon, 'Climbing_Gyms');
+	var canstore_layer = document.getElementById("canstore");
+	var canstore_icon = document.getElementsByClassName("canstore")[0];
+	layerControl(canstore_layer, canstore_icon, 'Cannabis_Stores');
 	// brewery popups
 	var popup = new mapboxgl.Popup({
 		closeButton: false,
@@ -266,31 +269,6 @@ map.on('load', function () {
 		map.getCanvas().style.cursor = '';
 		popup.remove();
 	});
-	// brewery 100 yards popup
-	var popup = new mapboxgl.Popup({
-		closeButton: false,
-		closeOnClick: false
-	});
-	// // mouseover brewery 100 yard points
-	map.on('mouseenter', 'Breweries_100yrds', function (e) {
-		// Change the cursor style as a UI indicator.
-		map.getCanvas().style.cursor = 'pointer';
-		var coordinates = e.features[0].geometry.coordinates.slice();
-		var description = e.features[0].properties.Brewery;
-		// Ensure that if the map is zoomed out such that multiple
-		// copies of the feature are visible, the popup appears
-		// over the copy being pointed to.
-		while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-			coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-		}
-		// Populate the popup and set its coordinates
-		// based on the feature found.
-		popup.setLngLat(coordinates).setHTML(description).addTo(map);
-	});
-	map.on('mouseleave', 'Breweries_100yrds', function () {
-		map.getCanvas().style.cursor = '';
-		popup.remove();
-	});
 	// // climbing gyms click popup
 	map.on('click', 'Climbing_Gyms', function (e) {
 		var coordinates = e.features[0].geometry.coordinates.slice();
@@ -304,13 +282,36 @@ map.on('load', function () {
 		}
 		// Populate the popup and set its coordinates
 		// based on the feature found.
-		new mapboxgl.Popup().setLngLat(coordinates).setHTML("<a href=" + website + "&quot" + " " + "target=&quot_blank&quot>" + description + "</a>").addTo(map);
+		new mapboxgl.Popup().setLngLat(coordinates).setHTML("<a href=" + website + " " + "target=&quot_blank&quot>" + description + "</a>").addTo(map);
 	});
 	map.on('mouseenter', 'Climbing_Gyms', function () {
 		map.getCanvas().style.cursor = 'pointer';
 		popup.remove();
 	});
 	map.on('mouseleave', 'Climbing_Gyms', function () {
+		map.getCanvas().style.cursor = '';
+		popup.remove();
+	});
+
+	map.on('click', 'Cannabis_Stores', function (e) {
+		var coordinates = e.features[0].geometry.coordinates.slice();
+		var description = e.features[0].properties.Name;
+		var website = e.features[0].properties.Website;
+				// Ensure that if the map is zoomed out such that multiple
+		// copies of the feature are visible, the popup appears
+		// over the copy being pointed to.
+		while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+		}
+		// Populate the popup and set its coordinates
+		// based on the feature found.
+		new mapboxgl.Popup().setLngLat(coordinates).setHTML("<a href=" + website + " " + "target=&quot_blank&quot>" + description + "</a>").addTo(map);
+	})
+	map.on('mouseenter', 'Cannabis_Stores', function () {
+		map.getCanvas().style.cursor = 'pointer';
+		popup.remove();
+	});
+	map.on('mouseleave', 'Cannabis_Stores', function () {
 		map.getCanvas().style.cursor = '';
 		popup.remove();
 	});
@@ -324,7 +325,6 @@ map.on('load', function () {
       });
 
 	  map.addControl(geocoder, 'top-left');
-	  console.log(geocoder)
 
 	//   var isoButt = document.getElementById("buttonIso")
 	//   isoButt.addEventListener('click', getIso);
@@ -360,7 +360,7 @@ map.on('load', function () {
 					'layout': {},
 					'paint': {
 					// The fill color for the layer is set to a light purple
-					'fill-color': '#5a3fc0',
+					'fill-color': '#00ACEA',
 					'fill-opacity': 0.3
 					}
 				}, "poi-label");
@@ -369,19 +369,15 @@ map.on('load', function () {
 		search.addEventListener('keyup', function(e) {
 			if (e.keyCode === 13) { 
 					plotIso();
-				};
+				};				
 		});
-		
-		// WORK ON THIS!!!!!!!!
-		// var searchSugg = document.getElementsByClassName('mapboxgl-ctrl-geocoder--suggestions')[0];
-		// 	if (searchSugg !== undefined) {
-		// 	searchSugg.addEventListener('click', function() {
-		// 		if (searchSugg !== undefined) {
-		// 			plotIso();
-		// 		}
-		// 		});
-		// 	}
-	
+
+		var searchSugg = document.getElementsByClassName('suggestions')[0];
+		searchSugg.addEventListener('mouseup', function(e) {
+			if(e.target && e.target.nodeName == "DIV") {
+				plotIso();
+			}
+		});
 
 		var resetSearchButt = document.getElementsByClassName('mapboxgl-ctrl-geocoder--button')[0];
 		resetSearchButt.addEventListener('click', function() {

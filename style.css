@@ -25,8 +25,8 @@ body {
 }
 .legend-body {
 	width: 240px;
-	box-shadow: 5px 10px 18px #888888;
-	background: #f5f5f5;
+	box-shadow: 0px 0px 6px 4px #00ACEA;
+	background: #191A1A;
 	font-size: 14px;
 	opacity: 0;
 	transition: opacity 0.3s;
@@ -35,9 +35,15 @@ body {
 	right: 0;
 	visibility: hidden;
 	padding: 20px;
-	border-radius: 5px;
+  border-radius: 5px;
+  color: #A9A9A9;
 	/* display: none */
 }
+
+.headings {
+  margin-top: 15px;
+}
+
 .layer-text {
 	display: block;
 	margin-left: 40px;
@@ -111,39 +117,86 @@ body {
 	box-sizing: content-box;
 }
 .allbrew {
-	background-color: black;
-	margin-left: 9px;
-	box-sizing: content-box;
-}
-.brewhunyrds {
-	background-color: black;
-	border: 4px;
-	border-style: solid;
-	border-color: #a569bd;
-	box-sizing: content-box;
+  background-color: black;
+  border: 2px;
+  border-style: solid;
+  border-color: #a569bd;
 	margin-top: 4px;
-	font-size: 10px;
-}
-#brewhunyrds {
-	font-size: 13px;
+	box-sizing: content-box;
 }
 .climbgym {
 	background-color: black;
-	border: 4px;
+	border: 2px;
 	border-style: solid;
-	border-color: #079e57;
+	border-color: #DD0A0A;
 	box-sizing: content-box;
 	margin-top: 4px;
 }
+.canstore {
+  background-color: black;
+	border: 2px;
+  border-color: #00c400;
+  border-style: solid;
+  margin-top: 4px;
+	box-sizing: content-box;
+}
 .iso-selection{
 	position: absolute;
-	margin-top: 70px;
-	background-color: #e6e2ff;
-	padding: 20px;
+	margin-top: 10px;
+	background-color: #191A1A;
+	padding: 15px;
 	margin-left: 10px;
 	border-radius: 5px;
-	box-shadow: 5px 10px 18px #888888;
+  color: #989898;
+  box-shadow: 0px 0px 6px 4px #00ACEA;
+  width: 295px;
+  padding-top: 50px
+  
+  /* padding-top: px; */
 }
+
+.profile-duration-selector input{
+  margin:0;padding:0;
+  -webkit-appearance:none;
+     -moz-appearance:none;
+          appearance:none;
+}
+.walking-icon{background-image:url(Icons/isochrome/walk.svg);}
+.cycling-icon{background-image:url(Icons/isochrome/bike.svg);}
+.driving-icon{background-image:url(Icons/isochrome/car.svg);}
+
+.profile-duration-selector input:active +.toggle{opacity: .9;}
+.profile-duration-selector input:checked +.toggle{
+  -webkit-filter: none;
+     -moz-filter: none;
+          filter: none;
+}
+.toggle{
+  cursor:pointer;
+  background-size:30px 30px;
+  background-repeat:no-repeat;
+  display:inline-block;
+  width:70px;height:30px;
+  color: #00ACEA;
+  font-size: 14pt;
+  font-weight: 900;
+  -webkit-transition: all 100ms ease-in;
+     -moz-transition: all 100ms ease-in;
+          transition: all 100ms ease-in;
+  -webkit-filter: brightness(.8) grayscale(1) opacity(.7);
+     -moz-filter: brightness(.8) grayscale(1) opacity(.7);
+          filter: brightness(.8) grayscale(1) opacity(.7);
+}
+.toggle:hover{
+  -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+     -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+          filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+/* Extras */
+a:visited{color:#888}
+a{color:#444;text-decoration:none;}
+p{margin-bottom:.3em;}
 
 Basics
 .mapboxgl-ctrl-geocoder,
@@ -158,11 +211,12 @@ Basics
   line-height: 24px;
   font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
   position: relative;
-  background-color: #fff;
+  background-color: #363636;
   width: 100%;
   min-width: 295px;
   z-index: 1;
-  border-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
   transition: width .25s, min-width .25s;
 }
 
@@ -174,12 +228,12 @@ Basics
   margin: 0;
   height: 50px;
   color: #404040; /* fallback */
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(240, 240, 240);
   padding: 6px 45px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  box-shadow: 5px 10px 18px #888888;
+  /* box-shadow: 0px 0px 6px 4px #00ACEA; */
 }
 
 .mapboxgl-ctrl-geocoder--input::-ms-clear {
@@ -188,7 +242,7 @@ Basics
 
 .mapboxgl-ctrl-geocoder--input:focus {
   color: #404040; /* fallback */
-  color: rgba(0, 0, 0, 0.75);
+  color :rgb(240, 240, 240);
   outline: 0;
   box-shadow: none;
   outline: thin dotted\8;
@@ -216,7 +270,7 @@ Basics
 
 /* Suggestions */
 .mapboxgl-ctrl-geocoder .suggestions {
-  background-color: #fff;
+  background-color: #363636;
   border-radius: 4px;
   left: 0;
   list-style: none;
@@ -241,7 +295,7 @@ Basics
   cursor: default;
   display: block;
   padding: 6px 12px;
-  color: #404040;
+  color: #f3f3f3;
 }
 
 .mapboxgl-ctrl-geocoder .suggestions > .active > a,
@@ -268,7 +322,7 @@ Basics
   display: inline-block;
   vertical-align: middle;
   speak: none;
-  fill: #757575;
+  fill:  #00ACEA;;
   top: 15px;
 }
 
@@ -278,6 +332,7 @@ Basics
   left: 12px;
   width: 23px;
   height: 23px;
+  fill: #00ACEA;
 }
 
 .mapboxgl-ctrl-geocoder--button {
@@ -285,7 +340,7 @@ Basics
   margin: 0;
   border: none;
   cursor: pointer;
-  background: #fff;
+  background: #363636;
   line-height: 1;
 }
 
